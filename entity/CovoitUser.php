@@ -1,11 +1,11 @@
 <?php
 class CovoitUser {
-    private $id; 
-    private $nom;
-    private $prenom;
-    private $tel;
-    private $mail;
-    private $mdp;
+    public $id; 
+    public $nom;
+    public $prenom;
+    public $tel;
+    public $mail;
+    public $mdp;
 
 
     public function __construct() {
