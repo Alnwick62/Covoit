@@ -1,5 +1,5 @@
 <?php
-class CovoitUser {
+class CovoitUser implements JsonSerializable {
     public $id; 
     public $nom;
     public $prenom;
@@ -21,7 +21,6 @@ class CovoitUser {
                 $this->prenom = func_get_arg(2); 
                 $this->tel = func_get_arg(3); 
                 $this->mail = func_get_arg(4); 
-                $this->mdp= func_get_arg(5); 
                 break;
         }
     }
@@ -86,5 +85,15 @@ class CovoitUser {
         return $this;
     }
 
+    public function jsonSerialize(): mixed {
+        return [
+            'id' => $this->id,
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
+            'tel' => $this->tel,
+            'mail' => $this->mail,
+        ];
+    }
+    
 }
 ?>

@@ -42,11 +42,11 @@ function addCovoitUser($unCovoitUser){
         VALUES (:nom, :prenom, :tel, :mail, :mdp)
     ");
 
-    $requete->bindParam(':nom', $unCovoitUser->nom, PDO::PARAM_STR);
-    $requete->bindParam(':prenom', $unCovoitUser->prenom, PDO::PARAM_STR);
-    $requete->bindParam(':tel', $unCovoitUser->tel, PDO::PARAM_STR);
-    $requete->bindParam(':mail', $unCovoitUser->mail, PDO::PARAM_STR);
-    $requete->bindParam(':mdp', $unCovoitUser->mdp, PDO::PARAM_STR);
+    $requete->bindParam(':nom', $unCovoitUser->getNom(), PDO::PARAM_STR);
+    $requete->bindParam(':prenom', $unCovoitUser->getPrenom(), PDO::PARAM_STR);
+    $requete->bindParam(':tel', $unCovoitUser->getTel(), PDO::PARAM_STR);
+    $requete->bindParam(':mail', $unCovoitUser->getMail(), PDO::PARAM_STR);
+    $requete->bindParam(':mdp',password_hash($unCovoitUser->getMdp(), PASSWORD_DEFAULT)) ;
 	return $requete->execute();
 }
 
@@ -67,12 +67,25 @@ function updateUnCovoitUser($unCovoitUser){
     return $requete->execute();
 }
 
-function deleteUnCovoitUser($id){
+function deleteCovoitUser($id) {
     $pdo = PDO2::getInstance();
-    $requete = $pdo->prepare("DELETE FROM CovoitUser WHERE id = :id");
-    $requete->bindParam(':id', $id, PDO::PARAM_INT);
-    return $requete->execute();
-}
+
+    $requete1 = $pdo->prepare("DELETE FROM OffreCovoit WHERE chauffeur = :id");
+    $requete1->bindValue(':id', $id, PDO::PARAM_INT);
+    $result1 = $requete1->execute();
+    $requete1->closeCursor();
+
+    $requete2 = $pdo->prepare("DELETE FROM CovoitUser WHERE id = :id");
+    $requete2->bindValue(':id', $id, PDO::PARAM_INT);
+    $result2 = $requete2->execute();
+    $requete2->closeCursor();
+
+    if ($result1 && $result2) {
+        true;
+    } else {
+        false;
+    }
+} 
 
 
 ?>

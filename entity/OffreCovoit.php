@@ -1,15 +1,15 @@
 <?php
 
 class OffreCovoit {
-    private $id; 
-    private $jour;
-    private $heure;
-    private $date;
-    private $lieu; // nom orga ou nom ville
+    public $id; 
+    public $jour;
+    public $heure;
+    public $date;
+    public $lieu; // nom orga ou nom ville
     //private $nbPlacesProposees ;
     //private $nbPlacesRestantes ;
    // private $lesPassagers ;
-    private $leChauffeur ; 
+    public $chauffeur ; 
 
    
     public function __construct() {
@@ -25,7 +25,7 @@ class OffreCovoit {
                 $this->heure = func_get_arg(2); 
                 $this->date = func_get_arg(3); 
                 $this->lieu = func_get_arg(4); 
-                $this->leChauffeur=func_get_arg(5); 
+                $this->chauffeur=func_get_arg(5); 
                 break;
         }
     }
@@ -43,11 +43,11 @@ public function setId($id) {
 }
 
 function getCovoitUser() {
-    return $this->leChauffeur;
+    return $this->chauffeur;
 }
 
 function setCovoitUser($objetChauffeur) {
-     $this->leChauffeur=$objetChauffeur;
+     $this->chauffeur=$objetChauffeur;
      return $this;
 }
 function getJour() {
@@ -87,7 +87,7 @@ function setLieu($lieu) {
 
 
 // Méthode magique __get pour accéder aux propriétés privées
-/*
+
 public function __get($nomPropriete) {
     // Vérifie si la propriété existe
     if(property_exists($this, $nomPropriete)) {
@@ -96,7 +96,7 @@ public function __get($nomPropriete) {
         throw new Exception("Propriété '$nomPropriete' non définie.");
     }
 }
-*/
+
 
 
 
